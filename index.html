@@ -710,3 +710,307 @@
 
         .countdown-item {
             background: rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius);
+            padding: var(--spacing-sm);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .countdown-number {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--gold-matte);
+            line-height: 1.1;
+        }
+
+        .countdown-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 0.2rem;
+        }
+
+        /* ============================================
+           STOPKA
+           ============================================ */
+        .footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            padding: var(--spacing-md) 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+        }
+
+        .footer .gold {
+            color: var(--gold-matte);
+        }
+
+        .footer-social {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-social a {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--gold-matte);
+        }
+
+        /* ============================================
+           RESPONSYWNOSC
+           ============================================ */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 80px var(--spacing-md) var(--spacing-md);
+                gap: var(--spacing-sm);
+                transform: translateY(-100%);
+                transition: transform 0.4s ease;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+                border-bottom: 2px solid var(--gold-light);
+            }
+
+            .nav-links.open {
+                transform: translateY(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: var(--spacing-lg) var(--spacing-sm);
+                min-height: 90vh;
+            }
+
+            .countdown-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
+            }
+
+            .countdown-item {
+                padding: 0.8rem 0.3rem;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            .section {
+                padding: var(--spacing-lg) 0;
+            }
+
+            .map-container iframe {
+                height: 250px;
+            }
+
+            .guestbook-form,
+            .rsvp-form {
+                padding: var(--spacing-sm);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .countdown-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+
+            .countdown-item {
+                padding: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+    NAVIGACJA
+    ========================================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="navbar-logo">M <span>&</span> A</a>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#details">Szczegóły</a></li>
+                <li><a href="#info">Dla gości</a></li>
+                <li><a href="#guestbook">Życzenia</a></li>
+                <li><a href="#rsvp" class="btn-gold-small">RSVP</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==========================================
+    HERO
+    ========================================== -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">💍 Zaproszenie ślubne</div>
+            <h1>
+                Mateusz <span class="gold">&</span> Aleksandra
+            </h1>
+            <p class="hero-subtitle">Z radością zapraszamy na nasz ślub</p>
+            <div class="hero-divider"></div>
+            <p class="hero-date">
+                <span>18 Września 2026</span> · 18 Settembre 2026
+            </p>
+            <p class="hero-date" style="font-size:0.9rem; margin-top:-0.5rem;">
+                Villa del Cielo · Siena, Italia
+            </p>
+            <a href="#details" class="scroll-indicator" aria-label="Przewiń w dół">⌄</a>
+        </div>
+    </section>
+
+    <!-- ==========================================
+    SZCZEGÓŁY
+    ========================================== -->
+    <section class="section" id="details">
+        <div class="container">
+            <h2 class="section-title">Szczegóły <span class="gold">wesela</span></h2>
+            <p class="section-subtitle">
+                Wszystkie najważniejsze informacje o naszym wielkim dniu
+            </p>
+
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon">📅</div>
+                    <h3>Data i godzina</h3>
+                    <p><span class="highlight">18 września 2026</span></p>
+                    <p>Ceremonia: <span class="highlight">17:00</span></p>
+                    <p>Przyjęcie: <span class="highlight">19:00</span></p>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">📍</div>
+                    <h3>Miejsce</h3>
+                    <p><span class="highlight">Villa del Cielo</span></p>
+                    <p>Via delle Vigne 27</p>
+                    <p>53019 Castelnuovo Berardenga</p>
+                    <p style="font-size:0.85rem; color:var(--gold-matte);">Siena, Italia</p>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">⛪</div>
+                    <h3>Ceremonia</h3>
+                    <p>Kościółek św. Franciszka z Asyżu</p>
+                    <p style="font-size:0.9rem; color:var(--text-light);">Położony na wzgórzu z widokiem<br>na toskańskie winnice</p>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">🍷</div>
+                    <h3>Przyjęcie</h3>
+                    <p>Kolacja w ogrodzie willi</p>
+                    <p style="font-size:0.9rem; color:var(--text-light);">Oświetlona tysiącem światełek<br>z widokiem na zachód słońca</p>
+                </div>
+            </div>
+
+            <!-- Mapa -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2937.543216789012!2d11.3540!3d43.3478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132a3a8b8b8b8b8b%3A0x8b8b8b8b8b8b8b8b!2sVia%20delle%20Vigne%2027%2C%2053019%20Castelnuovo%20Berardenga%20SI%2C%20Italy!5e0!3m2!1sen!2spl!4v1700000000000" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Mapa dojazdu do Villa del Cielo">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+    INFORMACJE DLA GOŚCI
+    ========================================== -->
+    <section class="section" id="info" style="background: var(--white);">
+        <div class="container">
+            <h2 class="section-title">Informacje dla <span class="gold">gości</span></h2>
+            <p class="section-subtitle">
+                Wszystko, co musicie wiedzieć, aby cieszyć się tym wyjątkowym dniem
+            </p>
+
+            <div class="info-grid">
+                <!-- Dress Code -->
+                <div class="info-card">
+                    <h3>👗 Dress code</h3>
+                    <div class="dress-code-box">
+                        <p>
+                            Sugerujemy <strong>jasne, wakacyjne kolory</strong> – biel, beże, pastele, złote akcenty. 
+                            Prosimy o wygodne buty na kostkę (ceremonia będzie w ogrodzie, a podłoże to żwir i trawa).
+                        </p>
+                        <p style="margin-top:0.5rem;">
+                            Dla Pań zachęcamy do eleganckich sukienek maxi,<br>
+                            dla Panów – jasnych garniturów lub lnianych marynarek.
+                        </p>
+                        <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-light);">
+                            ☀️ Pamiętajcie o nakryciu głowy lub parasolce – włoskie słońce wita nas z otwartymi ramionami!
+                        </p>
+                        <div class="dress-code-colors">
+                            <span class="color-dot" style="background:#FFFFFF; border-color:#ddd;"></span>
+                            <span class="color-dot" style="background:#FDF5E6;"></span>
+                            <span class="color-dot" style="background:#F5E6CA;"></span>
+                            <span class="color-dot" style="background:#D4AF37;"></span>
+                            <span class="color-dot" style="background:#F0E6D3;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transport -->
+                <div class="info-card">
+                    <h3>🚌 Transport</h3>
+                    <p style="color:var(--text-light); margin-bottom:0.5rem;">
+                        Zapewniamy bezpłatny transport z centrum Sieny do Villa del Cielo i z powrotem.
+                    </p>
+                    <ul>
+                        <li><strong>Autokar nr 1:</strong> 15:30 · Piazza Gramsci</li>
+                        <li><strong>Autokar nr 2:</strong> 16:00 · Piazza Gramsci</li>
+                        <li style="border-bottom: none; padding-top:0.5rem; color:var(--gold-matte);">
+                            ⏰ <strong>Powrót:</strong> 01:00 na Piazza Gramsci
+                        </li>
+                    </ul>
+                    <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--text-light);">
+                        🚗 Parking strzeżony na terenie willi dla gości z własnym dojazdem
+                    </p>
+                </div>
+
+                <!-- Pogoda i noclegi -->
+                <div class="info-card">
+                    <h3>☀️ Pogoda</h3>
+                    <p>
+                        We wrześniu w Toskanii panuje śródziemnomorski klimat.<br>
+                        <strong>Dzień:</strong> 25-30°C · <strong>Wieczór:</strong> 18-22°C
