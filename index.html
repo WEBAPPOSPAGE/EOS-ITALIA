@@ -191,7 +191,7 @@
             margin-top: 0;
             position: relative;
             background: 
-                linear-gradient(135deg, rgba(253, 251, 247, 0.85) 0%, rgba(253, 251, 247, 0.4) 100%),
+            background: linear-gradient(135deg, rgba(253, 251, 247, 0.85) 0%, rgba(253, 251, 247, 0.4) 100%),
                 url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23fdfbf7"/%3E%3Ccircle cx="50" cy="50" r="1.5" fill="%23d4af37" opacity="0.15"/%3E%3C/svg%3E');
             background-size: cover;
             background-position: center;
@@ -317,9 +317,7 @@
             font-size: 1.05rem;
         }
 
-													   
-					  
-														  
+						 
         .details-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -528,6 +526,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: var(--font-sans);
+			width: 100%;			
         }
 
         .btn-gold:hover {
@@ -585,6 +584,8 @@
             margin-top: 0.3rem;
             font-size: 0.95rem;
             line-height: 1.6;
+			white-space: pre-wrap;					  
+			word-wrap: break-word;					  
         }
 
         .empty-message {
@@ -594,6 +595,18 @@
             font-style: italic;
         }
 
+		.guestbook-counter {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .guestbook-counter span {
+            color: var(--gold-matte);
+            font-weight: 600;
+        }
+					
         /* ============================================
            SEKCJA RSVP
            ============================================ */
@@ -639,6 +652,7 @@
             display: flex;
             gap: var(--spacing-md);
             padding-top: 0.3rem;
+			flex-wrap: wrap;				
         }
 
         .radio-group label {
@@ -1020,7 +1034,7 @@
                     <p>
                         W Czerwcu w Toskanii panuje śródziemnomorski klimat.<br>
                         <strong>Dzień:</strong> 25-30°C · <strong>Wieczór:</strong> 18-22°C
-		                    </p>
+					</p>	
                     <p style="margin-top:0.5rem; color:var(--text-light); font-size:0.9rem;">
                         Zabierzcie lekką marynarkę lub szal na wieczór.
                     </p>
@@ -1045,28 +1059,478 @@
             <p class="section-subtitle">
                 Zostawcie nam swoje ciepłe słowa – będą z nami na zawsze!
             </p>
-				
-																							 
-																		  
-						
-																												   
-																			   
-																		  
-																	 
-																															 
-																												
-						
-					  
-				  
-			  
-			  
 
-												   
-								 
-												  
-															  
-							   
-																						  
-										
-																			   
-				
+            <!-- FORMULARZ DODAWANIA ŻYCZEŃ -->
+            <div class="guestbook-form" id="guestbookForm">
+                <div class="form-group">
+                    <label for="guestName">Twoje imię i nazwisko *</label>
+                    <input type="text" id="guestName" placeholder="Np. Anna Kowalska" required>
+                </div>
+                <div class="form-group">
+                    <label for="guestMessage">Treść życzenia *</label>
+                    <textarea id="guestMessage" placeholder="Napisz coś od siebie... ❤️" required></textarea>
+                </div>
+                <button class="btn-gold" id="submitWish" type="button">
+                    ✨ Wyślij życzenie
+                </button>
+                <p style="text-align:center; font-size:0.8rem; color:var(--text-light); margin-top:0.5rem;">
+                    * Wszystkie życzenia są widoczne dla wszystkich gości
+                </p>
+            </div>
+
+            <!-- LICZNIK ŻYCZEŃ -->
+            <div class="guestbook-counter">
+                📝 Dotychczasowe życzenia: <span id="wishCount">0</span>
+            </div>
+
+            <!-- LISTA ŻYCZEŃ -->
+            <div class="guestbook-messages" id="guestbookMessages">
+                <!-- Tutaj JavaScript wstawi życzenia -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+    RSVP
+    ========================================== -->
+    <section class="section rsvp-section" id="rsvp">
+        <div class="container">
+            <h2 class="section-title">Potwierdź <span class="gold">obecność</span></h2>
+            <p class="section-subtitle">
+                Daj nam znać, czy będziesz z nami w tym wyjątkowym dniu
+            </p>
+
+            <div class="rsvp-form" id="rsvpForm">
+                <div id="rsvpFormFields">
+                    <div class="form-group">
+                        <label for="rsvpName">Imię i nazwisko *</label>
+                        <input type="text" id="rsvpName" placeholder="Np. Anna Kowalska" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvpEmail">Adres e-mail *</label>
+                        <input type="email" id="rsvpEmail" placeholder="anna@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvpCount">Liczba osób (w tym Ty) *</label>
+                        <input type="number" id="rsvpCount" min="1" max="6" value="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Czy potwierdzasz przybycie? *</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="rsvpAttending" value="yes" checked> Tak, będę! 🥂</label>
+                            <label><input type="radio" name="rsvpAttending" value="no"> Niestety nie mogę 💔</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvpDiet">Preferencje dietetyczne</label>
+                        <select id="rsvpDiet">
+                            <option value="brak">Brak specjalnych wymagań</option>
+                            <option value="wegetarianska">Wegetariańska</option>
+                            <option value="weganska">Wegeńska</option>
+                            <option value="bezglutenowa">Bezglutenowa</option>
+                            <option value="alergie">Alergie (opis w uwagach)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvpNotes">Uwagi dodatkowe</label>
+                        <textarea id="rsvpNotes" placeholder="Np. alergie pokarmowe, potrzeba miejsca dla dziecka..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="rsvpTransport">
+                            <label for="rsvpTransport">🚌 Potrzebuję transportu z Sieny</label>
+                        </div>
+                    </div>
+
+                    <button class="btn-gold" id="submitRSVP" type="button">
+                        📩 Wyślij potwierdzenie
+                    </button>
+                    <p style="text-align:center; font-size:0.8rem; color:var(--text-light); margin-top:0.5rem;">
+                        Prosimy o potwierdzenie do 15 sierpnia 2026
+                    </p>
+                </div>
+
+                <div class="rsvp-success" id="rsvpSuccess">
+                    <span class="big-icon">❤️</span>
+                    <h3>Dziękujemy!</h3>
+                    <p style="color:var(--text-light);">
+                        Twoje potwierdzenie zostało zapisane.<br>
+                        Z niecierpliwością czekamy na Ciebie we Włoszech!
+                    </p>
+                    <p style="color:var(--gold-matte); font-weight:600; margin-top:0.5rem;">
+                        Do zobaczenia 18 września! 🇮🇹
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+    LICZNIK
+    ========================================== -->
+    <section class="section countdown-section" id="countdown">
+        <div class="container">
+            <h2 class="section-title">Do ślubu <span class="gold">pozostało</span></h2>
+            <p class="section-subtitle">
+                Każdy dzień przybliża nas do tego wyjątkowego momentu
+            </p>
+            <div class="countdown-grid">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Dni</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Godzin</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minut</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Sekund</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+    STOPKA
+    ========================================== -->
+    <footer class="footer">
+        <div class="container">
+            <p>
+                <span class="gold">❤️</span> 
+                Mateusz & Aleksandra 
+                <span class="gold">❤️</span>
+            </p>
+            <p style="margin-top:0.3rem; font-size:0.75rem;">
+                #MateuszIAleksandra2026 · Ślub we Włoszech · 18.09.2026
+            </p>
+            <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">
+                © 2026 · Wszystkie prawa zastrzeżone
+            </p>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+    JAVASCRIPT
+    ========================================== -->
+    <script>
+        // ==========================================
+        // 1. HAMBURGER MENU
+        // ==========================================
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Zamykanie menu po kliknięciu linku
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ==========================================
+        // 2. KSIĘGA ŻYCZEŃ
+        // ==========================================
+        const STORAGE_KEY = 'wedding_wishes';
+
+        // Pobierz życzenia z localStorage lub użyj domyślnych
+        function getWishes() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    return getDefaultWishes();
+                }
+            }
+            return getDefaultWishes();
+        }
+
+        // Domyślne życzenia (przykładowe)
+        function getDefaultWishes() {
+            return [
+                {
+                    id: Date.now() - 86400000,
+                    author: 'Anna Kowalska',
+                    message: 'Mateusz i Aleksandra! Niech Wasza miłość rozkwita tak pięknie jak toskańskie winnice. Bądźcie dla siebie opoką i radością każdego dnia. Do zobaczenia we Włoszech! ❤️',
+                    date: new Date(Date.now() - 86400000).toISOString()
+                },
+                {
+                    id: Date.now() - 172800000,
+                    author: 'Tomasz Nowicki',
+                    message: 'Najlepsze życzenia dla cudownej pary! Macie w sobie to "coś" – iskrę, która zapala wszystkich dookoła. Niech ten ślub będzie początkiem najpiękniejszej przygody Waszego życia! 🥂',
+                    date: new Date(Date.now() - 172800000).toISOString()
+                },
+                {
+                    id: Date.now() - 259200000,
+                    author: 'Maria i Jan Wiśniewscy',
+                    message: 'Kochana Aleksandro i drogi Mateuszu! Jesteśmy niesamowicie dumni i wzruszeni. Włochy to idealne miejsce na Wasz wielki dzień – pełen słońca, miłości i radości. Sto lat! 🌟',
+                    date: new Date(Date.now() - 259200000).toISOString()
+                }
+            ];
+        }
+
+        // Zapisz życzenia do localStorage
+        function saveWishes(wishes) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes));
+        }
+
+        // Wyświetl życzenia
+        function renderWishes() {
+            const wishes = getWishes();
+            const container = document.getElementById('guestbookMessages');
+            const counter = document.getElementById('wishCount');
+
+            counter.textContent = wishes.length;
+
+            if (wishes.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-message">
+                        🌟 Brak życzeń. Bądź pierwszy! Zostaw nam coś od siebie.
+                    </div>
+                `;
+                return;
+            }
+
+            // Sortuj od najnowszych
+            const sorted = [...wishes].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            container.innerHTML = sorted.map(wish => {
+                const date = new Date(wish.date);
+                const dateStr = date.toLocaleDateString('pl-PL', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                return `
+                    <div class="message-card">
+                        <div>
+                            <span class="message-author">${escapeHtml(wish.author)}</span>
+                            <span class="message-date">${dateStr}</span>
+                        </div>
+                        <div class="message-text">${escapeHtml(wish.message)}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Proste escape dla bezpieczeństwa
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Dodaj nowe życzenie
+        function addWish() {
+            const nameInput = document.getElementById('guestName');
+            const messageInput = document.getElementById('guestMessage');
+            const submitBtn = document.getElementById('submitWish');
+
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!name || !message) {
+                alert('Proszę wypełnić oba pola (imię i życzenie)!');
+                return;
+            }
+
+            if (name.length < 2) {
+                alert('Imię musi mieć co najmniej 2 znaki.');
+                return;
+            }
+
+            if (message.length < 3) {
+                alert('Życzenie musi mieć co najmniej 3 znaki.');
+                return;
+            }
+
+            // Wyłącz przycisk na chwilę
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Wysyłanie...';
+
+            const newWish = {
+                id: Date.now(),
+                author: name,
+                message: message,
+                date: new Date().toISOString()
+            };
+
+            const wishes = getWishes();
+            wishes.push(newWish);
+            saveWishes(wishes);
+
+            // Wyczyść pola
+            nameInput.value = '';
+            messageInput.value = '';
+
+            // Odśwież listę
+            renderWishes();
+
+            // Przywróć przycisk
+            submitBtn.disabled = false;
+            submitBtn.textContent = '✨ Wyślij życzenie';
+
+            // Przewiń do listy życzeń
+            document.getElementById('guestbookMessages').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ==========================================
+        // 3. RSVP
+        // ==========================================
+        function submitRSVP() {
+            const name = document.getElementById('rsvpName').value.trim();
+            const email = document.getElementById('rsvpEmail').value.trim();
+            const count = document.getElementById('rsvpCount').value;
+            const attending = document.querySelector('input[name="rsvpAttending"]:checked');
+            const diet = document.getElementById('rsvpDiet').value;
+            const notes = document.getElementById('rsvpNotes').value.trim();
+            const transport = document.getElementById('rsvpTransport').checked;
+
+            // Walidacja
+            if (!name || !email) {
+                alert('Proszę wypełnić imię i adres e-mail!');
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('Proszę podać poprawny adres e-mail!');
+                return;
+            }
+
+            if (!attending) {
+                alert('Proszę wybrać, czy potwierdzasz przybycie!');
+                return;
+            }
+
+            // Zapisz w localStorage
+            const rsvpData = {
+                name,
+                email,
+                count: parseInt(count),
+                attending: attending.value,
+                diet,
+                notes,
+                transport,
+                date: new Date().toISOString()
+            };
+
+            // Zapisz wszystkie RSVP
+            const allRSVP = JSON.parse(localStorage.getItem('wedding_rsvp') || '[]');
+            allRSVP.push(rsvpData);
+            localStorage.setItem('wedding_rsvp', JSON.stringify(allRSVP));
+
+            // Pokaż sukces
+            document.getElementById('rsvpFormFields').style.display = 'none';
+            document.getElementById('rsvpSuccess').classList.add('show');
+        }
+
+        // ==========================================
+        // 4. LICZNIK
+        // ==========================================
+        function updateCountdown() {
+            const targetDate = new Date('2026-09-18T17:00:00+02:00').getTime();
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // ==========================================
+        // 5. NAVBAR SCROLL EFFECT
+        // ==========================================
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ==========================================
+        // 6. INIT
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Renderuj życzenia
+            renderWishes();
+
+            // Uruchom licznik
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // Event listener dla przycisku "Wyślij życzenie"
+            document.getElementById('submitWish').addEventListener('click', addWish);
+
+            // Enter w polu tekstowym - wyślij
+            document.getElementById('guestMessage').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    addWish();
+                }
+            });
+
+            // Event listener dla RSVP
+            document.getElementById('submitRSVP').addEventListener('click', submitRSVP);
+
+            // Enter w RSVP
+            document.querySelectorAll('#rsvpForm input').forEach(input => {
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        submitRSVP();
+                    }
+                });
+            });
+        });
+
+        // ==========================================
+        // 7. KLAWIATURA - zamknij menu ESC
+        // ==========================================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            }
+        });
+
+        console.log('💍 Strona zaproszenia ślubnego załadowana!');
+        console.log('📖 Księga życzeń działa z localStorage.');
+        console.log('📩 RSVP zapisuje odpowiedzi w localStorage.');
+    </script>
+
+</body>
+</html>					   
+	   
