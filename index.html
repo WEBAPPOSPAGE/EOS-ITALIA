@@ -876,7 +876,72 @@
     </style>
 </head>
 <body>
+<!-- UKRYTY PANEL ADMINA -->
+<div style="
+    position: fixed; 
+    top: 80px; 
+    right: 20px; 
+    z-index: 999;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+    padding: 1rem;
+    border: 2px solid var(--gold-matte);
+    display: none;
+    max-width: 300px;
+" id="adminPanel">
+    <h4 style="font-family: var(--font-serif); color: var(--gold-matte); margin-bottom: 0.5rem;">
+        🔑 Panel pary młodej
+    </h4>
+    <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">
+        Kliknij na życzenie, które chcesz usunąć
+    </p>
+    <button onclick="toggleAdminMode()" style="
+        background: var(--gold-matte);
+        color: white;
+        border: none;
+        padding: 0.3rem 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        width: 100%;
+    ">
+        ✅ Aktywuj tryb usuwania
+    </button>
+    <button onclick="closeAdminPanel()" style="
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        font-size: 0.7rem;
+        margin-top: 0.3rem;
+    ">
+        Zamknij panel
+    </button>
+</div>
 
+<!-- Przycisk do otwierania panelu (mały, w prawym dolnym rogu) -->
+<button onclick="toggleAdminPanel()" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    background: var(--gold-matte);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    🔑
+</button>
     <!-- ==========================================
     NAVIGACJA
     ========================================== -->
