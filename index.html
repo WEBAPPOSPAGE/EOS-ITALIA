@@ -1594,6 +1594,102 @@
         console.log('💍 Strona zaproszenia ślubnego załadowana!');
         console.log('📖 Księga życzeń działa z localStorage.');
         console.log('📩 RSVP zapisuje odpowiedzi w localStorage.');
+
+		// 8.dodawanie panelu administracyjnego dla komentarzy
+		// Panel administracyjny
+let adminMode = false;
+
+function toggleAdminPanel() {
+    const panel = document.getElementById('adminPanel');
+    if (panel.style.display === 'block') {
+        panel.style.display = 'none';
+    } else {
+        panel.style.display = 'block';
+    }
+}
+
+function closeAdminPanel() {
+    document.getElementById('adminPanel').style.display = 'none';
+}
+
+function toggleAdminMode() {
+    adminMode = !adminMode;
+    const btn = document.querySelector('#adminPanel button');
+    if (adminMode) {
+        btn.textContent = '🔴 Wyłącz tryb usuwania';
+        btn.style.background = '#e74c3c';
+        showToast('🟢 Tryb usuwania AKTYWNY - kliknij na życzenie, aby je usunąć');
+        
+        // Dodaj efekt do wiadomości
+        document.querySelectorAll('.message-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.style.borderLeftColor = '#e74c3c';
+        });
+    } else {
+        btn.textContent = '✅ Aktywuj tryb usuwania';
+        btn.style.background = 'var(--gold-matte)';
+        showToast('🔴 Tryb usuwania WYŁĄCZONY');
+        
+        document.querySelectorAll('.message-card').forEach(card => {
+            card.style.cursor = 'default';
+            card.style.borderLeftColor = 'var(--gold-matte)';
+        });
+    }
+}
+
+// Nadpisz funkcję renderWishes z obsługą klikania
+const originalRender2 = renderWishes;
+renderWishes = function() {
+    const wishes = getWishes();
+    const container = document.getElementById('guestbookMessages');
+    const counter = document.getElementById('wishCount');
+
+    counter.textContent = wishes.length;
+
+    if (wishes.length === 0) {
+        container.innerHTML = `
+            <div class="empty-message">
+                🌟 Brak życzeń. Bądź pierwszy! Zostaw nam coś od siebie.
+            </div>
+        `;
+        return;
+    }
+
+    const sorted = [...wishes].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    container.innerHTML = sorted.map(wish => {
+        const date = new Date(wish.date);
+        const dateStr = date.toLocaleDateString('pl-PL', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        return `
+            <div class="message-card" data-id="${wish.id}" onclick="handleWishClick(${wish.id})">
+                <div>
+                    <span class="message-author">${escapeHtml(wish.author)}</span>
+                    <span class="message-date">${dateStr}</span>
+                </div>
+                <div class="message-text">${escapeHtml(wish.message)}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function handleWishClick(wishId) {
+    if (adminMode) {
+        if (confirm('Czy na pewno chcesz usunąć to życzenie?')) {
+            let wishes = getWishes();
+            const newWishes = wishes.filter(w => w.id !== wishId);
+            saveWishes(newWishes);
+            renderWishes();
+            showToast('🗑️ Życzenie zostało usunięte!');
+        }
+    }
+}
     </script>
 
 </body>
