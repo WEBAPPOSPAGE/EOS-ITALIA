@@ -1070,6 +1070,7 @@
                 </div>    
       -->
             </div>
+            </section>
     <!-- ==========================================
     SZCZEGÓŁY
     ========================================== -->
@@ -1405,13 +1406,10 @@
     JAVASCRIPT
     ========================================== -->
     <script>
-        // ==========================================
-        // ⭐ KONFIGURACJA GITHUB GIST ⭐
-        // ==========================================
-        const GIST_CONFIG = {
-            id: '7c9cf9150602e798a1d73dac930ad060',        // <-- ZMIEŃ NA SWÓJ ID GISTA
-            token: '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'    // <-- ZMIEŃ NA SWÓJ TOKEN GITHUB
-        };
+// ==========================================
+// ⭐ KONFIGURACJA KSIĘGI ŻYCZEŃ ⭐
+// ==========================================
+const WISHES_API = 'https://script.google.com/macros/s/AKfycbyndfBR6diGeZyXHgvcZdsZmvda5h9TnmXZfLANSeUmqtVBFsbP8IEa_Z8ztLF55n0t/exec';
 
 // ==========================================
 // 1. HAMBURGER MENU
@@ -1459,226 +1457,126 @@ document.addEventListener('keydown', function(e) {
         // ==========================================
         // 2. KSIĘGA ŻYCZEŃ - GITHUB GIST
         // ==========================================
+// ==========================================
+// KSIĘGA ŻYCZEŃ — przez Google Apps Script
+// ==========================================
 
-        // POBIERANIE ŻYCZEŃ Z GISTA
-        async function getWishesFromGist() {
-            try {
-                const response = await axios.get(
-                    `https://api.github.com/gists/${GIST_CONFIG.id}`,
-                    {
-                        headers: {
-                            'Authorization': `token ${GIST_CONFIG.token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    }
-                );
+// POBIERANIE ŻYCZEŃ
+async function getWishes() {
+    try {
+        const response = await fetch(WISHES_API);
+        if (!response.ok) throw new Error('Błąd pobierania');
+        const wishes = await response.json();
+        return Array.isArray(wishes) ? wishes : [];
+    } catch (error) {
+        console.error('Błąd pobierania życzeń:', error);
+        return [];
+    }
+}
 
-                if (!response.data.files || !response.data.files['wishes.json']) {
-                    return [];
-                }
+// DODAWANIE ŻYCZENIA
+async function addWishToServer(author, message) {
+    try {
+        const response = await fetch(WISHES_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ author, message })
+        });
+        return response.ok;
+    } catch (error) {
+        console.error('Błąd dodawania:', error);
+        return false;
+    }
+}
 
-                const content = response.data.files['wishes.json'].content;
-                if (!content || content.trim() === '') {
-                    return [];
-                }
+// ŁADOWANIE I WYŚWIETLANIE
+async function loadWishes() {
+    const wishes = await getWishes();
+    renderWishes(wishes);
+    document.getElementById('wishCount').textContent = wishes.length;
+}
 
-                const wishes = JSON.parse(content);
-                return Array.isArray(wishes) ? wishes : [];
-            } catch (error) {
-                console.error('Błąd pobierania życzeń z Gist:', error);
-                return [];
-            }
-        }
+function renderWishes(wishes) {
+    const container = document.getElementById('guestbookMessages');
 
-        // ZAPISYWANIE ŻYCZEŃ DO GISTA
-        async function saveWishesToGist(wishes) {
-            try {
-                let sha = null;
-                try {
-                    const getResponse = await axios.get(
-                        `https://api.github.com/gists/${GIST_CONFIG.id}`,
-                        {
-                            headers: {
-                                'Authorization': `token ${GIST_CONFIG.token}`,
-                                'Accept': 'application/vnd.github.v3+json'
-                            }
-                        }
-                    );
-                    if (getResponse.data.files && getResponse.data.files['wishes.json']) {
-                        sha = getResponse.data.files['wishes.json'].sha;
-                    }
-                } catch (e) {
-                    console.log('Gist nie istnieje lub jest pusty, tworzę nowy');
-                }
+    if (!wishes || wishes.length === 0) {
+        container.innerHTML = `
+            <div class="empty-message">
+                🌟 Brak życzeń. Bądź pierwszy! Zostaw nam coś od siebie.
+            </div>
+        `;
+        return;
+    }
 
-                const content = JSON.stringify(wishes, null, 2);
-                const updateData = {
-                    files: {
-                        'wishes.json': {
-                            content: content
-                        }
-                    }
-                };
+    const sorted = [...wishes].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-                if (sha) {
-                    updateData.files['wishes.json'].sha = sha;
-                }
+    container.innerHTML = sorted.map(wish => {
+        const date = new Date(wish.date);
+        const dateStr = date.toLocaleDateString('pl-PL', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
 
-                await axios.patch(
-                    `https://api.github.com/gists/${GIST_CONFIG.id}`,
-                    updateData,
-                    {
-                        headers: {
-                            'Authorization': `token ${GIST_CONFIG.token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    }
-                );
-
-                console.log('✅ Życzenia zapisane w Gist!');
-                return true;
-            } catch (error) {
-                console.error('❌ Błąd zapisu do Gist:', error);
-                if (error.response && error.response.status === 401) {
-                    alert('❌ Problem z tokenem GitHub. Sprawdź czy token jest poprawny.');
-                } else if (error.response && error.response.status === 404) {
-                    alert('❌ Gist nie istnieje. Sprawdź ID Gista.');
-                } else if (error.response && error.response.status === 403) {
-                    alert('❌ Przekroczono limit zapytań do GitHub API. Spróbuj za chwilę.');
-                }
-                return false;
-            }
-        }
-
-        // DODAWANIE NOWEGO ŻYCZENIA
-        async function addWishToGist(author, message) {
-            let wishes = await getWishesFromGist();
-            const newWish = {
-                id: Date.now(),
-                author: author,
-                message: message,
-                date: new Date().toISOString()
-            };
-            wishes.push(newWish);
-            const success = await saveWishesToGist(wishes);
-            if (success) {
-                showToast('✨ Życzenie zostało dodane!');
-                document.getElementById('guestName').value = '';
-                document.getElementById('guestMessage').value = '';
-                await loadWishes();
-            } else {
-                showToast('❌ Nie udało się dodać życzenia. Spróbuj ponownie.');
-            }
-        }
-
-        // USUWANIE ŻYCZENIA
-        async function deleteWishFromGist(wishId) {
-            if (!confirm('Czy na pewno chcesz usunąć to życzenie?')) {
-                return;
-            }
-
-            let wishes = await getWishesFromGist();
-            wishes = wishes.filter(w => w.id !== wishId);
-            const success = await saveWishesToGist(wishes);
-            if (success) {
-                showToast('🗑️ Życzenie zostało usunięte!');
-                await loadWishes();
-            } else {
-                showToast('❌ Nie udało się usunąć życzenia.');
-            }
-        }
-
-        // ŁADOWANIE I WYŚWIETLANIE ŻYCZEŃ
-        async function loadWishes() {
-            const wishes = await getWishesFromGist();
-            renderWishes(wishes);
-            document.getElementById('wishCount').textContent = wishes.length;
-        }
-
-        function renderWishes(wishes) {
-            const container = document.getElementById('guestbookMessages');
-
-            if (!wishes || wishes.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-message">
-                        🌟 Brak życzeń. Bądź pierwszy! Zostaw nam coś od siebie.
+        return `
+            <div class="message-card" data-id="${wish.id}">
+                <div class="message-header">
+                    <div>
+                        <span class="message-author">${escapeHtml(wish.author)}</span>
+                        <span class="message-date">${dateStr}</span>
                     </div>
-                `;
-                return;
-            }
+                </div>
+                <div class="message-text">${escapeHtml(wish.message)}</div>
+            </div>
+        `;
+    }).join('');
+}
 
-            const sorted = [...wishes].sort((a, b) => new Date(b.date) - new Date(a.date));
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
-            container.innerHTML = sorted.map(wish => {
-                const date = new Date(wish.date);
-                const dateStr = date.toLocaleDateString('pl-PL', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
+// OBSŁUGA FORMULARZA
+async function addWish() {
+    const nameInput = document.getElementById('guestName');
+    const messageInput = document.getElementById('guestMessage');
+    const submitBtn = document.getElementById('submitWish');
 
-                return `
-                    <div class="message-card" data-id="${wish.id}">
-                        <div class="message-header">
-                            <div>
-                                <span class="message-author">${escapeHtml(wish.author)}</span>
-                                <span class="message-date">${dateStr}</span>
-                            </div>
-                            <button 
-                                class="message-delete-btn" 
-                                onclick="deleteWishFromGist(${wish.id})"
-                                title="Usuń to życzenie"
-                            >
-                                ✕
-                            </button>
-                        </div>
-                        <div class="message-text">${escapeHtml(wish.message)}</div>
-                    </div>
-                `;
-            }).join('');
-        }
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
 
-        // ESCAPE HTML
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+    if (!name || !message) {
+        alert('Proszę wypełnić oba pola!');
+        return;
+    }
+    if (name.length < 2) {
+        alert('Imię musi mieć co najmniej 2 znaki.');
+        return;
+    }
+    if (message.length < 3) {
+        alert('Życzenie musi mieć co najmniej 3 znaki.');
+        return;
+    }
 
-        // DODAWANIE ŻYCZENIA (obsługa formularza)
-        async function addWish() {
-            const nameInput = document.getElementById('guestName');
-            const messageInput = document.getElementById('guestMessage');
-            const submitBtn = document.getElementById('submitWish');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '⏳ Wysyłanie...';
 
-            const name = nameInput.value.trim();
-            const message = messageInput.value.trim();
+    const success = await addWishToServer(name, message);
 
-            if (!name || !message) {
-                alert('Proszę wypełnić oba pola (imię i życzenie)!');
-                return;
-            }
+    submitBtn.disabled = false;
+    submitBtn.textContent = '✨ Wyślij życzenie';
 
-            if (name.length < 2) {
-                alert('Imię musi mieć co najmniej 2 znaki.');
-                return;
-            }
+    if (success) {
+        showToast('✨ Życzenie zostało dodane!');
+        nameInput.value = '';
+        messageInput.value = '';
+        await loadWishes();
+    } else {
+        showToast('❌ Nie udało się dodać życzenia. Spróbuj ponownie.');
+    }
+}
 
-            if (message.length < 3) {
-                alert('Życzenie musi mieć co najmniej 3 znaki.');
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = '⏳ Wysyłanie...';
-
-            await addWishToGist(name, message);
-
-            submitBtn.disabled = false;
-            submitBtn.textContent = '✨ Wyślij życzenie';
-        }
 
         // ==========================================
         // 3. TOAST (POWIADOMIENIA)
