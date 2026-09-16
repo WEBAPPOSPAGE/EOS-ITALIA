@@ -1630,48 +1630,85 @@ async function addWish() {
         // ==========================================
         // 5. RSVP
         // ==========================================
-        function submitRSVP() {
-            const name = document.getElementById('rsvpName').value.trim();
-            const email = document.getElementById('rsvpEmail').value.trim();
-            const count = document.getElementById('rsvpCount').value;
-            const attending = document.querySelector('input[name="rsvpAttending"]:checked');
-            const diet = document.getElementById('rsvpDiet').value;
-            const notes = document.getElementById('rsvpNotes').value.trim();
-            const transport = document.getElementById('rsvpTransport').checked;
+// ==========================================
+// 5. RSVP — przez Google Apps Script
+// ==========================================
+async function submitRSVP() {
+    const name = document.getElementById('rsvpName').value.trim();
+    const email = document.getElementById('rsvpEmail').value.trim();
+    const count = document.getElementById('rsvpCount').value;
+    const attending = document.querySelector('input[name="rsvpAttending"]:checked');
+    const diet = document.getElementById('rsvpDiet').value;
+    const notes = document.getElementById('rsvpNotes').value.trim();
+    const transport = document.getElementById('rsvpTransport').checked;
+    const submitBtn = document.getElementById('submitRSVP');
 
-            if (!name || !email) {
-                alert('Proszę wypełnić imię i adres e-mail!');
-                return;
-            }
+    // Walidacja
+    if (!name || !email) {
+        alert('Proszę wypełnić imię i adres e-mail!');
+        return;
+    }
 
-            if (!email.includes('@') || !email.includes('.')) {
-                alert('Proszę podać poprawny adres e-mail!');
-                return;
-            }
+    if (!email.includes('@') || !email.includes('.')) {
+        alert('Proszę podać poprawny adres e-mail!');
+        return;
+    }
 
-            if (!attending) {
-                alert('Proszę wybrać, czy potwierdzasz przybycie!');
-                return;
-            }
+    if (!attending) {
+        alert('Proszę wybrać, czy potwierdzasz przybycie!');
+        return;
+    }
 
-            const rsvpData = {
-                name,
-                email,
-                count: parseInt(count),
-                attending: attending.value,
-                diet,
-                notes,
-                transport,
-                date: new Date().toISOString()
-            };
+    const rsvpData = {
+        name,
+        email,
+        count: parseInt(count),
+        attending: attending.value,
+        diet,
+        notes,
+        transport
+    };
 
-            const allRSVP = JSON.parse(localStorage.getItem('wedding_rsvp') || '[]');
-            allRSVP.push(rsvpData);
-            localStorage.setItem('wedding_rsvp', JSON.stringify(allRSVP));
+    // Zablokuj przycisk
+    submitBtn.disabled = true;
+    submitBtn.textContent = '⏳ Wysyłanie...';
 
+    // Wyślij do Google Apps Script
+    try {
+        console.log('📤 Wysyłam RSVP do:', RSVP_API);
+        console.log('📦 Dane:', rsvpData);
+
+        const response = await fetch(RSVP_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(rsvpData)
+        });
+
+        console.log('📥 Status:', response.status);
+        const text = await response.text();
+        console.log('📥 Odpowiedź:', text);
+
+        if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
+        }
+
+        const json = JSON.parse(text);
+
+        if (json.success === true) {
+            // Sukces
             document.getElementById('rsvpFormFields').style.display = 'none';
             document.getElementById('rsvpSuccess').classList.add('show');
+            showToast('✅ Potwierdzenie wysłane! Dziękujemy!');
+        } else {
+            throw new Error(json.error || 'Nieznany błąd serwera');
         }
+    } catch (error) {
+        console.error('❌ Błąd RSVP:', error);
+        showToast('❌ Nie udało się wysłać. Spróbuj ponownie.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = '📩 Wyślij potwierdzenie';
+    }
+}
 
         // ==========================================
         // 6. LICZNIK
