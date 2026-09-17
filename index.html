@@ -631,6 +631,79 @@
             color: var(--gold-matte);
             font-weight: 600;
         }
+
+        /* ============================================
+   SEKCJA POLITYKI PRYWATNOŚCI
+   ============================================ */
+.privacy-section {
+    background: var(--white);
+}
+
+.privacy-content {
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.privacy-content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--gold-matte);
+    margin-top: var(--spacing-md);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--gold-light);
+}
+
+.privacy-content h3:first-child {
+    margin-top: 0;
+}
+
+.privacy-content p {
+    margin-bottom: 0.8rem;
+}
+
+.privacy-content ul {
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.privacy-content ul li {
+    padding: 0.2rem 0;
+    line-height: 1.7;
+}
+
+.privacy-content strong {
+    color: var(--dark);
+}
+
+.privacy-content a {
+    color: var(--gold-matte);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold-matte);
+    transition: color 0.2s ease;
+}
+
+.privacy-content a:hover {
+    color: var(--gold-shiny);
+    border-bottom-style: solid;
+}
+
+@media (max-width: 768px) {
+    .privacy-content {
+        font-size: 0.9rem;
+    }
+
+    .privacy-content h3 {
+        font-size: 1.15rem;
+    }
+
+    .privacy-content ul {
+        padding-left: 1.2rem;
+    }
+}
         /* ============================================
         SEKCJA AKTUALNOŚCI
        ============================================ */
@@ -1468,8 +1541,201 @@ AKTUALNOŚCI
     </div>
 </section>
     <!-- ==========================================
+POLITYKA PRYWATNOŚCI
+========================================== -->
+<section class="section privacy-section" id="privacy">
+    <div class="container">
+        <h2 class="section-title">📜 Polityka <span class="gold">prywatności</span></h2>
+        <p class="section-subtitle">
+            Ostatnia aktualizacja: 17 września 2026
+        </p>
+
+        <div class="privacy-content">
+
+            <h3>1. Informacje ogólne</h3>
+            <p>
+                Niniejsza Polityka Prywatności opisuje, w jaki sposób zbieramy, wykorzystujemy 
+                i chronimy dane osobowe osób odwiedzających stronę ślubną 
+                <strong>Oskar & Ewelina</strong> (dalej: „Strona"), dostępną pod adresem 
+                <em>https://webappospage.github.io</em>.
+            </p>
+            <p>
+                Strona ma charakter wyłącznie informacyjny i służy do przekazywania gościom 
+                szczegółów dotyczących ślubu, który odbędzie się 
+                <strong>17 czerwca 2027 roku</strong> we Włoszech
+            </p>
+            <p>
+                Administratorem danych osobowych jest para młoda — 
+                <strong>Oskar i Ewelina</strong>. Kontakt w sprawach dotyczących danych: 
+                <a href="mailto:oskarsiemieniecki5@gmail.com">oskarsiemieniecki5@gmail.com</a>.
+            </p>
+
+            <h3>2. Jakie dane zbieramy</h3>
+            <p>Podczas korzystania ze Strony możemy zbierać następujące dane:</p>
+            <ul>
+                <li>
+                    <strong>Dane podane w formularzu RSVP:</strong> imię i nazwisko, 
+                    adres e-mail, liczba osób towarzyszących, preferencje dietetyczne, 
+                    informacja o potrzebie transportu oraz opcjonalne uwagi.
+                </li>
+                <li>
+                    <strong>Dane podane w Księdze Życzeń:</strong> imię i nazwisko (lub pseudonim) 
+                    oraz treść życzenia.
+                </li>
+                <li>
+                    <strong>Dane techniczne:</strong> adres IP, typ przeglądarki, system operacyjny, 
+                    data i godzina wizyty (zbierane automatycznie przez dostawcę hostingu — GitHub Pages).
+                </li>
+            </ul>
+            <p>
+                <strong>Nie zbieramy</strong> danych wrażliwych ani danych dotyczących zdrowia, 
+                poza informacjami o preferencjach dietetycznych lub alergiach, które podajesz 
+                dobrowolnie w formularzu RSVP.
+            </p>
+
+            <h3>3. Cel i podstawa prawna przetwarzania</h3>
+            <p>Dane przetwarzamy wyłącznie w następujących celach:</p>
+            <ul>
+                <li><strong>Organizacja ślubu</strong> — potwierdzenie obecności, planowanie liczby miejsc, wybór menu (art. 6 ust. 1 lit. a RODO — zgoda).</li>
+                <li><strong>Księga Życzeń</strong> — publikacja życzeń na Stronie (art. 6 ust. 1 lit. a RODO — zgoda).</li>
+                <li><strong>Kontakt z gośćmi</strong> — przesyłanie informacji organizacyjnych (art. 6 ust. 1 lit. a RODO — zgoda).</li>
+                <li><strong>Bezpieczeństwo Strony</strong> — zapobieganie nadużyciom, ochrona przed spamem (art. 6 ust. 1 lit. f RODO — prawnie uzasadniony interes).</li>
+            </ul>
+            <p>
+                Podanie danych jest <strong>dobrowolne</strong>, ale niezbędne do potwierdzenia 
+                obecności na ślubie lub dodania życzenia. Niepodanie danych uniemożliwia 
+                skorzystanie z tych funkcji.
+            </p>
+
+            <h3>4. Gdzie przechowujemy dane</h3>
+            <p>
+                Dane z formularzy (RSVP, Księga Życzeń) są przechowywane 
+                <strong>w arkuszu Google Sheets</strong>, do którego dostęp mają wyłącznie 
+                para młoda. Google LLC przetwarza dane zgodnie z własną Polityką Prywatności 
+                oraz RODO (Google jest certyfikowanym dostawcą zgodnym z RODO).
+            </p>
+            <p>
+                Strona jest hostowana na platformie <strong>GitHub Pages</strong> (GitHub Inc., 
+                USA). GitHub może rejestrować adresy IP i inne dane techniczne w celach 
+                bezpieczeństwa i statystycznych.
+            </p>
+            <p>
+                Wszystkie dane są przekazywane przez szyfrowane połączenie HTTPS.
+            </p>
+
+            <h3>5. Komu udostępniamy dane</h3>
+            <p>
+                <strong>Nie sprzedajemy, nie wynajmujemy ani nie udostępniamy</strong> Twoich 
+                danych osobowych osobom trzecim w celach marketingowych.
+            </p>
+            <p>Dane mogą być udostępnione wyłącznie:</p>
+            <ul>
+                <li>dostawcy hostingu (GitHub Pages) — w zakresie danych technicznych,</li>
+                <li>dostawcy arkuszy Google (Google LLC) — w zakresie przechowywania,</li>
+                <li>obsłudze wesela (fotograf, katering, sala) — <strong>tylko za Twoją zgodą</strong> i wyłącznie w zakresie niezbędnym do organizacji.</li>
+            </ul>
+
+            <h3>6. Jak długo przechowujemy dane</h3>
+            <ul>
+                <li><strong>Dane RSVP</strong> — do 12 miesięcy po dacie ślubu (17.06.2027), czyli do <strong>17 czerwca 2028</strong>.</li>
+                <li><strong>Życzenia z Księgi Życzeń</strong> — do momentu ich usunięcia lub likwidacji Strony, ale nie dłużej niż do <strong>17 czerwca 2028</strong>.</li>
+            </ul>
+            <p>
+                Po upływie tych terminów dane są trwale usuwane z arkuszy Google.
+            </p>
+
+            <h3>7. Twoje prawa (RODO)</h3>
+            <p>W związku z przetwarzaniem danych przysługują Ci następujące prawa:</p>
+            <ul>
+                <li><strong>Prawo dostępu</strong> — możesz zapytać, jakie dane o Tobie mamy.</li>
+                <li><strong>Prawo do sprostowania</strong> — możesz poprawić nieaktualne dane.</li>
+                <li><strong>Prawo do usunięcia</strong> („prawo do bycia zapomnianym") — możesz zażądać usunięcia danych.</li>
+                <li><strong>Prawo do ograniczenia przetwarzania</strong> — możesz ograniczyć sposób wykorzystania danych.</li>
+                <li><strong>Prawo do przenoszenia danych</strong> — możesz otrzymać swoje dane w formacie nadającym się do odczytu.</li>
+                <li><strong>Prawo do wycofania zgody</strong> — w każdej chwili możesz wycofać zgodę na przetwarzanie (bez wpływu na zgodność z prawem wcześniejszego przetwarzania).</li>
+                <li><strong>Prawo do wniesienia skargi</strong> do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa, <a href="https://uodo.gov.pl" target="_blank" rel="noopener">uodo.gov.pl</a>).</li>
+            </ul>
+            <p>
+                Aby skorzystać z powyższych praw, napisz do nas: 
+                <a href="mailto:kontakt@example.com">oskarsiemieniecki5@gmail.com</a>.
+            </p>
+
+            <h3>8. Pliki cookies</h3>
+            <p>
+                Strona <strong>nie wykorzystuje własnych plików cookies</strong> w celach 
+                marketingowych ani analitycznych.
+            </p>
+            <p>
+                Dostawcy zewnętrzni (GitHub Pages, Google Fonts, Google Maps, Google Dysk, Google Sheets) 
+                mogą ustawiać własne pliki cookies zgodnie z ich politykami:
+            </p>
+            <ul>
+                <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google — Polityka Prywatności</a></li>
+                <li><a href="https://docs.github.com/en/site-policy/privacy-policies" target="_blank" rel="noopener">GitHub — Polityka Prywatności</a></li>
+            </ul>
+            <p>
+                Możesz zarządzać plikami cookies w ustawieniach swojej przeglądarki. 
+                Zablokowanie cookies może wpłynąć na działanie niektórych funkcji (np. mapy Google).
+            </p>
+
+            <h3>9. Bezpieczeństwo danych</h3>
+            <p>
+                Stosujemy odpowiednie środki techniczne i organizacyjne, aby chronić Twoje dane:
+            </p>
+            <ul>
+                <li>szyfrowane połączenie HTTPS,</li>
+                <li>dostęp do arkuszy Google tylko dla pary młodej,</li>
+                <li>brak publicznego udostępniania danych,</li>
+                <li>regularne przeglądanie uprawnień dostępu.</li>
+            </ul>
+            <p>
+                Mimo to <strong>żaden system nie jest w 100% bezpieczny</strong>. 
+                W przypadku naruszenia bezpieczeństwa danych, poinformujemy Cię 
+                zgodnie z art. 34 RODO.
+            </p>
+
+            <h3>10. Przekazywanie danych poza EOG</h3>
+            <p>
+                Google LLC i GitHub Inc. mają siedziby w USA. Przekazywanie danych poza EOG 
+                odbywa się na podstawie <strong>standardowych klauzul umownych (SCC)</strong> 
+                zatwierdzonych przez Komisję Europejską oraz — w przypadku Google — 
+                na podstawie <strong>EU-US Data Privacy Framework</strong>.
+            </p>
+
+            <h3>11. Dane dzieci</h3>
+            <p>
+                Strona nie jest skierowana do dzieci poniżej 16. roku życia. Jeśli dane 
+                dziecka zostały podane przez rodzica w formularzu RSVP (np. w celu rezerwacji 
+                miejsca), rodzic ponosi za to odpowiedzialność.
+            </p>
+
+            <h3>12. Zmiany w Polityce Prywatności</h3>
+            <p>
+                Zastrzegamy sobie prawo do zmiany niniejszej Polityki Prywatności. 
+                Wszelkie zmiany będą publikowane na tej stronie z aktualizacją daty. 
+                Korzystanie ze Strony po zmianach oznacza akceptację nowej wersji.
+            </p>
+
+            <h3>13. Kontakt</h3>
+            <p>
+                W sprawach dotyczących ochrony danych osobowych prosimy o kontakt:
+            </p>
+            <ul>
+                <li>📧 <a href="mailto:oskarsiemieniecki5@gmail.com">oskarsiemieniecki5@gmail.com</a></li>
+                <li>💍 Oskar i Ewelina — para młoda</li>
+            </ul>
+
+            <p style="text-align:center; margin-top: var(--spacing-md); font-style: italic; color: var(--text-light);">
+                Dziękujemy, że jesteście częścią naszego wyjątkowego dnia! ❤️🇮🇹
+            </p>
+
+        </div>
+    </div>
+</section>
+    <!-- ==========================================
     STOPKA
     ========================================== -->
+    
     <footer class="footer">
         <div class="container">
             <p>
@@ -1480,9 +1746,14 @@ AKTUALNOŚCI
             <p style="margin-top:0.3rem; font-size:0.75rem;">
                 #OskarIEwelina2027 · Ślub we Włoszech · 17.06.2027
             </p>
-            <p style="margin-top:0.5rem; font-size:0.7rem; opacity:0.5;">
-                © 2027 · Wszystkie prawa zastrzeżone
-            </p>
+    <p style="margin-top:0.5rem; font-size:0.75rem;">
+    <a href="#privacy" style="color: var(--gold-matte); text-decoration: none;">
+        📜 Polityka prywatności
+    </a>
+    </p>
+    <p style="margin-top:0.3rem; font-size:0.7rem; opacity:0.5;">
+    © 2027 Oskar & Ewelina · Wszystkie prawa zastrzeżone
+    </p>
         </div>
     </footer>
 
