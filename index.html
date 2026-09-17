@@ -1029,8 +1029,8 @@
                 <li><a href="#historia">Historia</a></li>
                 <li><a href="#details">Szczegóły</a></li>    
                 <li><a href="#info">Dla gości</a></li>
-                <li><a href="#guestbook">Życzenia</a></li>
                 <li><a href="#rsvp" class="btn-gold-small"> Potwierdz Swoją Obecność</a></li>
+                <li><a href="#guestbook">Życzenia</a></li>
             </ul>
         </div>
     </nav>
@@ -1298,48 +1298,7 @@
             </div>
         </div>
     </section>
-
-    <!-- ==========================================
-    KSIĘGA ŻYCZEŃ - Z GITHUB GIST
-    ========================================== -->
-    <section class="section guestbook-section" id="guestbook">
-        <div class="container">
-            <h2 class="section-title">📖 Księga <span class="gold">życzeń</span></h2>
-            <p class="section-subtitle">
-                Zostawcie nam swoje ciepłe słowa – będą z nami na zawsze!
-            </p>
-
-            <!-- FORMULARZ DODAWANIA ŻYCZEŃ -->
-            <div class="guestbook-form" id="guestbookForm">
-                <div class="form-group">
-                    <label for="guestName">Twoje imię(imiona) i nazwisko(nazwiska) *</label>
-                    <input type="text" id="guestName" placeholder="Np. Ewelina Siemieniecka" required>
-                </div>
-                <div class="form-group">
-                    <label for="guestMessage">Treść życzenia *</label>
-                    <textarea id="guestMessage" placeholder="Napisz coś od siebie... ❤️" required></textarea>
-                </div>
-                <button class="btn-gold" id="submitWish" type="button">
-                    ✨ Wyślij życzenie
-                </button>
-                <p style="text-align:center; font-size:0.8rem; color:var(--text-light); margin-top:0.5rem;">
-                    * Wszystkie życzenia są widoczne dla wszystkich gości
-                </p>
-            </div>
-
-            <!-- LICZNIK ŻYCZEŃ -->
-            <div class="guestbook-counter">
-                📝 Dotychczasowe życzenia: <span id="wishCount">0</span>
-            </div>
-
-            <!-- LISTA ŻYCZEŃ -->
-            <div class="guestbook-messages" id="guestbookMessages">
-                <!-- Tutaj JavaScript wstawi życzenia -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
+     <!-- ==========================================
     RSVP
     ========================================== -->
     <section class="section rsvp-section" id="rsvp">
@@ -1419,6 +1378,48 @@
             </div>
         </div>
     </section>
+
+    <!-- ==========================================
+    KSIĘGA ŻYCZEŃ - Z GITHUB GIST
+    ========================================== -->
+    <section class="section guestbook-section" id="guestbook">
+        <div class="container">
+            <h2 class="section-title">📖 Księga <span class="gold">życzeń</span></h2>
+            <p class="section-subtitle">
+                Zostawcie nam swoje ciepłe słowa – będą z nami na zawsze!
+            </p>
+
+            <!-- FORMULARZ DODAWANIA ŻYCZEŃ -->
+            <div class="guestbook-form" id="guestbookForm">
+                <div class="form-group">
+                    <label for="guestName">Twoje imię(imiona) i nazwisko(nazwiska) *</label>
+                    <input type="text" id="guestName" placeholder="Np. Ewelina Siemieniecka" required>
+                </div>
+                <div class="form-group">
+                    <label for="guestMessage">Treść życzenia *</label>
+                    <textarea id="guestMessage" placeholder="Napisz coś od siebie... ❤️" required></textarea>
+                </div>
+                <button class="btn-gold" id="submitWish" type="button">
+                    ✨ Wyślij życzenie
+                </button>
+                <p style="text-align:center; font-size:0.8rem; color:var(--text-light); margin-top:0.5rem;">
+                    * Wszystkie życzenia są widoczne dla wszystkich gości
+                </p>
+            </div>
+
+            <!-- LICZNIK ŻYCZEŃ -->
+            <div class="guestbook-counter">
+                📝 Dotychczasowe życzenia: <span id="wishCount">0</span>
+            </div>
+
+            <!-- LISTA ŻYCZEŃ -->
+            <div class="guestbook-messages" id="guestbookMessages">
+                <!-- Tutaj JavaScript wstawi życzenia -->
+            </div>
+        </div>
+    </section>
+
+   
 
     <!-- ==========================================
     LICZNIK
