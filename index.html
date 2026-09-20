@@ -1843,6 +1843,7 @@ async function submitRSVP() {
     const attending = document.querySelector('input[name="rsvpAttending"]:checked');
     const diet = document.getElementById('rsvpDiet').value;
     const notes = document.getElementById('rsvpNotes').value.trim();
+    const newsletter = document.getElementById('rsvpNewsletter').checked;
     const submitBtn = document.getElementById('submitRSVP');
 
     // Walidacja
@@ -1867,7 +1868,8 @@ async function submitRSVP() {
         count: parseInt(count),
         attending: attending.value,
         diet,
-        notes
+        notes,
+        newsletter  
     };
 
     // Zablokuj przycisk
