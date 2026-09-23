@@ -289,7 +289,186 @@
                 transform: translateY(10px);
             }
         }
+/* ============================================
+   [ŚLUBNE-1] ZMIENNE KOLORÓW — edytuj tutaj
+   ============================================ */
+:root {
+  --slub-tlo:        #faf7f2;   /* tło sekcji */
+  --slub-tekst:      #4a4a4a;   /* główny tekst */
+  --slub-akcent:     #8b7355;   /* złoto/brąz — nagłówki, hover */
+  --slub-akcent-2:   #a89a8c;   /* jaśniejszy akcent — podtytuły */
+  --slub-tor:        #ece5db;   /* tor paska przewijania */
+  --slub-thumb:      #c9b8a3;   /* uchwyt paska przewijania */
+  --slub-cien:       rgba(0,0,0,0.12);
+  --slub-cien-hover: rgba(0,0,0,0.18);
+}
+/* ============================================ */
+ /* ============================================
+   [ŚLUBNE-2] KONTENER SEKCJI + NAGŁÓWEK
+   ============================================ */
+.slub-gallery-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background: var(--slub-tlo);
+}
 
+.slub-gallery-title {
+  text-align: center;
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  color: var(--slub-akcent);
+  margin-bottom: 8px;
+}
+
+.slub-gallery-subtitle {
+  text-align: center;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--slub-akcent-2);
+  margin-bottom: 40px;
+}
+/* ============================================ */       
+ /* ============================================
+   [ŚLUBNE-2] KONTENER SEKCJI + NAGŁÓWEK
+   ============================================ */
+.slub-gallery-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background: var(--slub-tlo);
+}
+
+.slub-gallery-title {
+  text-align: center;
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  color: var(--slub-akcent);
+  margin-bottom: 8px;
+}
+
+.slub-gallery-subtitle {
+  text-align: center;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--slub-akcent-2);
+  margin-bottom: 40px;
+}
+/* ============================================ */
+/* ============================================
+   [ŚLUBNE-3] PASEK PRZEWIJANY W BOK
+   ============================================ */
+.slub-gallery-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;   /* przyciąganie do środka */
+  scroll-behavior: smooth;         /* płynne przewijanie */
+  padding: 10px 10px 25px;
+  -webkit-overflow-scrolling: touch; /* iOS: płynny swipe */
+}
+
+/* --- [ŚLUBNE-3a] Pasek przewijania (opcjonalny) --- */
+.slub-gallery-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.slub-gallery-scroll::-webkit-scrollbar-track {
+  background: var(--slub-tor);
+  border-radius: 10px;
+}
+.slub-gallery-scroll::-webkit-scrollbar-thumb {
+  background: var(--slub-thumb);
+  border-radius: 10px;
+}
+.slub-gallery-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--slub-akcent-2);
+}
+/* --- koniec [ŚLUBNE-3a] --- */
+
+/* Ukrycie paska — alternatywa (odkomentuj, jeśli chcesz) */
+/*
+.slub-gallery-scroll {
+  scrollbar-width: none;
+}
+.slub-gallery-scroll::-webkit-scrollbar { display: none; }
+*/
+/* ============================================ */
+/* ============================================
+   [ŚLUBNE-4] KAFELEK ZE ZDJĘCIEM
+   ============================================ */
+.slub-gallery-item {
+  flex: 0 0 auto;
+  width: 320px;
+  height: 420px;
+  scroll-snap-align: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px var(--slub-cien);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #e8e0d5;
+}
+
+.slub-gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px var(--slub-cien-hover);
+}
+
+.slub-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* ============================================ */
+/* ============================================
+   [ŚLUBNE-4] KAFELEK ZE ZDJĘCIEM
+   ============================================ */
+.slub-gallery-item {
+  flex: 0 0 auto;
+  width: 320px;
+  height: 420px;
+  scroll-snap-align: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px var(--slub-cien);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #e8e0d5;
+}
+
+.slub-gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px var(--slub-cien-hover);
+}
+
+.slub-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* ============================================ */
+/* ============================================
+   [ŚLUBNE-5] RESPONSYWNOŚĆ (mobile)
+   ============================================ */
+@media (max-width: 768px) {
+  .slub-gallery-item {
+    width: 260px;
+    height: 340px;
+  }
+  .slub-gallery-title {
+    font-size: 1.5rem;
+  }
+  .slub-gallery-subtitle {
+    font-size: 0.85rem;
+  }
+}
+/* ============================================ */
+        
         /* ============================================
            SEKCJA DETELE
            ============================================ */
@@ -1160,6 +1339,27 @@
               <a href="#historia" class="scroll-indicator" aria-label="Przewiń w dół">⌄</a>
         </div>
     </section>
+
+    <!-- ============================================
+     [ŚLUBNE-HTML] SEKCJA GALERII
+     ============================================ -->
+<section class="slub-gallery-section">
+
+  <!-- [ŚLUBNE-HTML-1] Nagłówek -->
+  <h2 class="slub-gallery-title">Nasze wspomnienia</h2>
+  <p class="slub-gallery-subtitle">Przewiń w bok, aby zobaczyć więcej →</p>
+
+  <!-- [ŚLUBNE-HTML-2] Pasek przewijany -->
+  <div class="slub-gallery-scroll">
+    <div class="slub-gallery-item"><img src="zdj1.jpg" alt="Zdjęcie 1"></div>
+    <div class="slub-gallery-item"><img src="zdj2.jpg" alt="Zdjęcie 2"></div>
+    <div class="slub-gallery-item"><img src="zdj3.jpg" alt="Zdjęcie 3"></div>
+    <div class="slub-gallery-item"><img src="zdj4.jpg" alt="Zdjęcie 4"></div>
+    <div class="slub-gallery-item"><img src="zdj5.jpg" alt="Zdjęcie 5"></div>
+  </div>
+
+</section>
+<!-- ============================================ -->
         <!-- ==========================================
     historia 
     ========================================== -->
