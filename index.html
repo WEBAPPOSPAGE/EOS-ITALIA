@@ -199,7 +199,9 @@
             background-position: center;
         }
 ============================================ */
-/* NOWE HERO — tło ze zdjęcia nr 4 */
+/* ============================================
+   [NOWE] HERO — tło ze zdjęcia nr 4
+   ============================================ */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -209,29 +211,44 @@
     padding: var(--spacing-xl) var(--spacing-md);
     margin-top: 0;
     position: relative;
-    background-image: 
-        linear-gradient(135deg, rgba(253, 251, 247, 0.75) 0%, rgba(253, 251, 247, 0.35) 100%),
+    overflow: hidden;
+
+    background-image:
+        radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.35) 100%),
+        linear-gradient(180deg, rgba(20,15,10,0.55) 0%, rgba(20,15,10,0.35) 50%, rgba(20,15,10,0.65) 100%),
         url('zdjecie6.jpg');
-    background-size: cover;
-    background-position: center;
+    background-size: cover, cover, cover;
+    background-position: center, center, center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed, fixed, fixed;
 }
  /* ============================================
         nowy kod
 ============================================ */        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(ellipse at 30% 20%, rgba(212, 175, 55, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 80%, rgba(212, 175, 55, 0.04) 0%, transparent 50%);
-            pointer-events: none;
-        }
+/* Delikatny złoty pył w tle */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 30% 20%, rgba(212, 175, 55, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Płynne przejście do następnej sekcji */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--cream));
+    pointer-events: none;
+    z-index: 2;
+}
 
         .hero-content {
             position: relative;
@@ -252,57 +269,93 @@
             margin-bottom: var(--spacing-md);
         }
 
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(2.8rem, 8vw, 5.5rem);
-            font-weight: 700;
-            color: var(--dark);
-            line-height: 1.1;
-            margin-bottom: var(--spacing-sm);
-        }
+.hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5), 0 4px 40px rgba(0,0,0,0.3);
+}
+
+.hero h1 .gold {
+    color: var(--gold-shiny);
+    font-style: italic;
+    text-shadow: 0 2px 25px rgba(212,175,55,0.6), 0 4px 40px rgba(0,0,0,0.3);
+}
 
         .hero h1 .gold {
             color: var(--gold-matte);
             font-style: italic;
         }
 
-        .hero-subtitle {
-            font-family: var(--font-serif);
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-            color: var(--text-light);
-            font-weight: 400;
-            margin-bottom: var(--spacing-sm);
-        }
+.hero-subtitle {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    color: rgba(255,255,255,0.95);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+}
 
-        .hero-date {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            letter-spacing: 1px;
-            margin-bottom: var(--spacing-md);
-        }
+.hero-date {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
 
-        .hero-date span {
-            color: var(--gold-matte);
-            font-weight: 600;
-        }
+.hero-date span {
+    color: var(--gold-shiny);
+    font-weight: 700;
+    letter-spacing: 3px;
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-top: 1px solid rgba(255,215,0,0.5);
+    border-bottom: 1px solid rgba(255,215,0,0.5);
+    margin-top: 0.5rem;
+}
 
-        .hero-divider {
-            width: 60px;
-            height: 2px;
-            background: var(--gold-matte);
-            margin: var(--spacing-md) auto;
-            opacity: 0.5;
-        }
+.hero-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-shiny), transparent);
+    margin: var(--spacing-md) auto;
+    opacity: 0.9;
+    box-shadow: 0 0 20px rgba(255,215,0,0.4);
+}
 
-        .scroll-indicator {
-            display: inline-block;
-            margin-top: var(--spacing-md);
-            animation: bounce 2s infinite;
-            color: var(--gold-matte);
-            font-size: 5rem;
-            text-decoration: none;
-        }
+.scroll-indicator {
+    display: inline-block;
+    margin-top: var(--spacing-md);
+    animation: bounce 2s infinite;
+    color: var(--gold-shiny);
+    font-size: 3rem;
+    text-decoration: none;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+}
 
+.hero-badge {
+    display: inline-block;
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold-shiny);
+    padding: 0.5rem 1.8rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-md);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+        
         @keyframes bounce {
             0%, 100% {
                 transform: translateY(0);
